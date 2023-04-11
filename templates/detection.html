@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% include "header.html" %}
+    <title>Live Streaming</title>
+</head>
+<body class="bg-light">
+{% include "menu.html" %}
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-8  offset-lg-2">
+            <h3 class="mt-5">Live Streaming</h3>
+            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">
+            Create Data set
+            </button>
+            <!--<a href="dataset_creation" class="btn btn-outline-primary" role="button">Create Data set</a>-->
+            <a href="trainer" class="btn btn-outline-secondary" role="button">Train model</a>
+            <a href="detection" class="btn btn-outline-success" role="button">Detection on steam</a>
+            {% include "messages.html" %}
+            <hr class="hr hr-blurry" />
+            <img src="{{ url_for('video_feed') }}" class="img-fluid rounded mx-auto d-block" alt="Responsive image" onerror="this.src='{{url_for('static', filename='images/error-image.jpg')}}'">
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="dataset_creation">
+                        <div class="form-group">
+                            <label for="User-Id" class="col-form-label">User Id:</label>
+                            <input type="text" class="form-control" name="user_id" id="User-Id" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="User-name" class="col-form-label">User Name:</label>
+                            <input type="text" class="form-control" name="user_name" id="User-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="User-age" class="col-form-label">User Age:</label>
+                            <input type="number" class="form-control" name="user_age" id="User-age" required>
+                        </div>
+                         <div class="form-group">
+                            <label for="User-gender" class="col-form-label">User Gender:</label>
+                            <select name="user_gendre"  class="form-select">
+                                <option selected>Open this select menu</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">other</option>
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Add User</button>
+                            <button type="reset" class="btn btn-primary">Reset</button>
+                        </div>
+                        <hr class="hr hr-blurry" />
+                        <a href="upload" role="button" class="btn btn-primary  btn-block mb-4">Uploads Images</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <hr class="hr hr-blurry" />
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}
+
+</body>

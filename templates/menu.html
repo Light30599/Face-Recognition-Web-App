@@ -1,0 +1,14 @@
+<script type="text/javascript">
+    $(window).on('load', function() {
+        if ( {{ form_test_show|default(0) }} )
+        {
+            $('#exampleModalCenter').modal('show');
+        }
+    });
+</script>
+<!-- Just an image -->
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="/">
+    <img src="{{url_for('static', filename='images/logo-recognition.jpg')}}" width="30" height="30" alt="Face App">
+  </a>
+</nav>

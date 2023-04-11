@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% include "header.html" %}
+    <title>Uploads DataSet</title>
+</head>
+<body class="bg-light">
+{% include "menu.html" %}
+<div class="container">
+{% if not filenames %}
+
+    <div class="row">
+        <div class="col-lg-8  offset-lg-2">
+            <h3>Select multiple images to upload and display</h3>
+            {% include "messages.html" %}
+            <hr class="hr hr-blurry" />
+
+<form method="POST" action="{{ url_for('uploads.upload_file') }}" enctype="multipart/form-data">
+	{% include "messages.html" %}
+	<div class="form-group">
+		<label for="User-Id" class="col-form-label">User Id:</label>
+		<input type="text" class="form-control" name="user_id" id="User-Id" required>
+	</div>
+	<div class="form-group">
+		<label for="User-name" class="col-form-label">User Name:</label>
+		<input type="text" class="form-control" name="user_name" id="User-name" required>
+	</div>
+	<div class="form-group">
+		<label for="User-age" class="col-form-label">User Age:</label>
+		<input type="number" class="form-control" name="user_age" id="User-age" required>
+	</div>
+	<div class="form-group">
+		<label for="User-gender" class="col-form-label">User Gender:</label>
+		<select name="user_gendre" class="form-select">
+			<option selected>Open this select menu</option>
+			<option value="MAN">Man</option>
+			<option value="WOMEN">Women</option>
+		</select>
+
+	</div>
+    <dl>
+		<div class="form-group">
+			<label for="formFile" class="form-label">Images input</label>
+			<input type="file" class="form-control" id="formFile" name="files[]" multiple required>
+		</div>
+    </dl>
+	<div>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+    </div>
+	<input type="submit"  class="btn btn-primary  btn-block mb-4" value="Submit">
+</form>
+{% else %}
+<div class="row">
+		<div class="col-lg-8  offset-lg-2">
+			<h3>Uploaded images</h3>
+			{% include "messages.html" %}
+			<hr class="hr hr-blurry" />
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="card">
+					<h5 class="card-header">
+							User Data
+					</h5>
+					<div class="card-body">
+					<h5 class="card-title"> {{ session['name'] }} </h5>
+					<p class="card-text">Gender : {{ session['gendre'] }}</p>
+					<p class="card-text">Age : {{ session['age'] }}</p>
+    				<a href="/trainer" class="btn btn-primary">Go Train Data</a>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+		
+{% endif%}
+
+{% if filenames %}
+<ul class="list-group list-group-horizontal mt-5">
+
+	{% for filename in filenames %}
+		<li class="list-group-item">
+			<img src="{{ url_for('uploads.display_image', filename=filename) }}" class="img-fluid">
+		</li>
+	{% endfor %}
+</ul>
+{% endif %}
+
+
+</div>
+                </div>
+            </div>
+            </div>
+            <hr class="hr hr-blurry" />
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}
+
+</body>
