@@ -44,6 +44,8 @@ app.config.from_mapping(
         UPLOAD_RECOGNIZER = os.getenv('FLASK_UPLOAD_RECOGNIZER','recognizer')
     )
 
+Number_of_images_to_capture = 100
+
 def init_db():
     # remove database content
     try:
@@ -168,7 +170,7 @@ def gen_frames_process(id,name,age,gendre):  # generate frame by frame from came
                    b'Content-Type: image/jpeg\r\n\r\n' + error_image + b'\r\n')
             break
         else:
-            if (sampleNum < 20):
+            if (sampleNum < Number_of_images_to_capture):
                 ret, buffer = cv2.imencode('.jpg', frame)
                 frame = buffer.tobytes()
                 yield (b'--frame\r\n'
