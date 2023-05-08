@@ -32,12 +32,19 @@ class Detector(DataBaseManager):
         for(x,y,w,h) in faces:
             cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
             id,conf=self.recognizer.predict(gray[y:y+h,x:x+w])
-            profile=self.getProfile(id)
-            print(profile)
-            if(profile != None):
-                cv2.putText(img, "Name : "+str(profile[1]), (x,y+h+25),cv2.FONT_HERSHEY_COMPLEX, 1,(0,255,127),2)
-                cv2.putText(img, "Age : "+str(profile[2]), (x,y+h+50),cv2.FONT_HERSHEY_COMPLEX, 1,(0,255,127),2)
-                cv2.putText(img, "Gender : "+str(profile[3]), (x,y+h+75),cv2.FONT_HERSHEY_COMPLEX, 1,(0,255,127),2)
+            print("conf value :",conf)
+            
+            #print(profile)
+            if conf < 40:
+                profile=self.getProfile(id)
+                if(profile != None):
+                    cv2.putText(img, "Name : "+str(profile[1]), (x,y+h+25),cv2.FONT_HERSHEY_COMPLEX, 1,(0,255,127),2)
+                    cv2.putText(img, "Age : "+str(profile[2]), (x,y+h+50),cv2.FONT_HERSHEY_COMPLEX, 1,(0,255,127),2)
+                    cv2.putText(img, "Gender : "+str(profile[3]), (x,y+h+75),cv2.FONT_HERSHEY_COMPLEX, 1,(0,255,127),2)
+                else:
+                    cv2.putText(img, "Unknown", (x,y+h+25),cv2.FONT_HERSHEY_COMPLEX, 1,(0,255,127),2)
+            else:
+                cv2.putText(img, "Unknown", (x,y+h+25),cv2.FONT_HERSHEY_COMPLEX, 1,(0,255,127),2)
         return ret,img
         #cv2.imshow("Face",img)
         #if(cv2.waitKey(1)==ord('q')):

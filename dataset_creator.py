@@ -75,7 +75,7 @@ class DatasetCreator(DataBaseManager):
             cv2.waitKey(100)
         cv2.putText(
             img, #numpy array on which text is written
-            "Process: {value}%".format(value=self.sampleNum*5), #text
+            "Process: {value}%".format(value=self.sampleNum), #text
             (20,40), #position at which writing has to start
             cv2.FONT_HERSHEY_SIMPLEX, #font family
             0.7, #font size
